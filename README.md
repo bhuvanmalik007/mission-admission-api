@@ -2,10 +2,7 @@
 ## **Mission-Admission-API**
 **Under Construction 🏗👷🏼⚒**
 
-Built using :
-
+[![forthebadge](http://forthebadge.com/images/badges/built-with-grammas-recipe.svg)](http://forthebadge.com)
  - Node
  - Express
  - Mongo DB
-
-[![forthebadge](http://forthebadge.com/images/badges/built-with-grammas-recipe.svg)](http://forthebadge.com)
