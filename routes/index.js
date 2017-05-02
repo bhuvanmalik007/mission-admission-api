@@ -5,9 +5,8 @@ const db = mongojs('mongodb://root:admin@ds039684.mlab.com:39684/apptest', ['wor
 const ResponseBuilder = require('./responsebuilder');
 
 
-
 router.get('/mywords', function(req, res, next) {
-  db.words.find((err, words) => {
+  db.words.find().sort({_id:-1},(err, words) => {
     if (err) { return res.json(ResponseBuilder(err, false)); }
     res.json(ResponseBuilder(words, true));
   });

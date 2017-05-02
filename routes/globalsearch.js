@@ -4,14 +4,6 @@ const ResponseBuilder = require('./responsebuilder');
 const request = require('request-promise');
 
 
-// router.get('/:word', (req, res, next) => {
-//   request({ uri: 'http://owlbot.info/api/v1/dictionary/'+req.params.word, method: 'GET' })
-//     .then(function(response) {
-//       console.log(response);
-//       res.send(JSON.parse(response));
-//     });
-// })
-
 router.get('/:word', (req, res, next) => {
   request({
       uri: 'https://od-api.oxforddictionaries.com:443/api/v1/entries/en/' + req.params.word,
@@ -39,7 +31,6 @@ router.get('/:word', (req, res, next) => {
         let j = i.map(obj => ({ word: req.params.word, meaning: obj.definitions[0], example: obj.examples && obj.examples[0].text }));
         res.send(j);
       }
-      // res.send(JSON.parse(response));
     }, err => {
       console.log(err);
       res.send([]);
