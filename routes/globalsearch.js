@@ -21,6 +21,10 @@ router.get('/:word', (req, res, next) => {
        'app_key': '16639cb92817985e70a5dfacb28a4cab'
    }})
     .then(function(response) {
+      if(response.status != 200){
+        res.send([]);
+        return; 
+      }
       let i = JSON.parse(response).results[0].lexicalEntries[0].entries[0].senses;
       console.log(i.examples);
       if(i[0].subsenses){
