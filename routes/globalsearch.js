@@ -22,14 +22,13 @@ router.get('/:word', (req, res, next) => {
         return;
       }
       let i = JSON.parse(response.body).results[0].lexicalEntries[0].entries[0].senses;
-      console.log(i.examples);
       if (i[0].subsenses) {
         let j = { word: req.params.word, meaning: i[0].definitions[0], example: i[0].examples && i[0].examples[0].text };
-        let k = i[0].subsenses.map(obj => ({ word: req.params.word, meaning: obj.definitions[0], example: obj.examples[0].text }));
-        res.send([j, ...k]);
+        let k = i[0].subsenses.map(obj => ({ word: req.params.word, meaning: obj.definitions[0], example: obj.examples && obj.examples[0].text }));
+        res.send({words: [j, ...k], pronunciation: JSON.parse(response.body).results[0].lexicalEntries[0].pronunciations[0].audioFile});
       } else {
         let j = i.map(obj => ({ word: req.params.word, meaning: obj.definitions[0], example: obj.examples && obj.examples[0].text }));
-        res.send(j);
+        res.send({words: j, pronunciation: JSON.parse(response.body).results[0].lexicalEntries[0].pronunciations[0].audioFile});
       }
     }, err => {
       console.log(err);
