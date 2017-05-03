@@ -32,7 +32,7 @@ router.get('/:word', (req, res, next) => {
       }
     }, err => {
       console.log(err);
-      res.send([]);
+      res.send({words:[]});
     });
 })
 
