@@ -3,6 +3,10 @@ var router = express.Router();
 const ResponseBuilder = require('./responsebuilder');
 const request = require('request-promise');
 
+router.get('/', (req, res, next) => {
+  res.send({words:[]});
+})
+
 
 router.get('/:word', (req, res, next) => {
   request({
