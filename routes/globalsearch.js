@@ -23,18 +23,20 @@ router.post('/multiple', (req, res, next) => {
   Promise.all(promiseArray.map(p => p.catch(() => undefined)))
     .then(responses => {
       let wordsArray = responses.reduce((acc, response) => {
+        if(!response)return acc;
         const body = JSON.parse(response.body);
         const singleWordArray = createWordsArray(body.results[0].lexicalEntries[0].entries[0].senses, body.results[0].word);
         return [...acc, ...singleWordArray];
       }, []);
-        db.words.insert(wordsArray, (err, wordArray) => {
+        db.words.insert(wordsArray, (err, wordsArray) => {
           err && res.json(ResponseBuilder(err, false));
           res.json(ResponseBuilder({ wordsArray, message: 'records saved' }, true));
         });
     }, reason => {
       console.log('reason')
       res.send(reason);
-    });
+    })
+    .catch((err)=>res.json(ResponseBuilder({ wordsArray:[], err }, false)))
 })
 
 
